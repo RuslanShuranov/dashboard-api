@@ -1,0 +1,14 @@
+# IDE files
+.vscode/
+.idea/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User secrets
+**/appsettings.Production.json
+**/appsettings.Staging.json

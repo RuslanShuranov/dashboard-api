@@ -1,0 +1,6 @@
+@dashboard_api_HostAddress = http://localhost:5179
+
+GET {{dashboard_api_HostAddress}}/dbconnection/
+Accept: application/json
+
+###
