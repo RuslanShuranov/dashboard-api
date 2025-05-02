@@ -4,3 +4,8 @@ GET {{dashboard_api_HostAddress}}/dbconnection/
 Accept: application/json
 
 ###
+
+GET {{dashboard_api_HostAddress}}/invoices
+Accept: application/json
+
+###
