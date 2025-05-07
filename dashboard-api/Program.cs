@@ -40,6 +40,66 @@ app.MapGet("/invoices", async (ApplicationDbContext db) =>
     }
 }).WithName("GetInvoices");
 
+app.MapGet("/invoices/{id:guid}", async (Guid id, ApplicationDbContext db) =>
+{
+    try
+    {
+        var invoice = await db.Invoices.FindAsync(id);
+        return invoice == null
+            ? Results.NotFound($"Invoice with ID {id} not found.")
+            : Results.Ok(invoice);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem($"Error retrieving invoice: {e.Message}");
+    }
+}).WithName("GetInvoiceById");
+
+app.MapPost("/invoices", async (ApplicationDbContext db, Invoice invoice) =>
+{
+    try
+    {
+        db.Invoices.Add(invoice);
+        await db.SaveChangesAsync();
+        return Results.Created($"/invoices/{invoice.Id}", invoice);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem($"Error creating invoice: {e.Message}");
+    }
+}).WithName("CreateInvoice");
+
+app.MapPut("/invoices", async (ApplicationDbContext db, Invoice invoice) =>
+{
+    try
+    {
+        db.Invoices.Update(invoice);
+        await db.SaveChangesAsync();
+        return Results.StatusCode(200);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem($"Error updating invoice: {e.Message}");
+    }
+}).WithName("UpdateInvoice");
+
+app.MapDelete("/invoices", async (ApplicationDbContext db, Guid id) =>
+{
+    try
+    {
+        var invoice = await db.Invoices.FindAsync(id);
+        if (invoice == null) return Results.NotFound();
+
+        db.Invoices.Remove(invoice);
+        await db.SaveChangesAsync();
+        return Results.StatusCode(200);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem($"Error deleting invoice: {e.Message}");
+    }
+}).WithName("DeleteInvoice");
+
 app.MapGet("/customers", async (ApplicationDbContext db) =>
 {
     try
