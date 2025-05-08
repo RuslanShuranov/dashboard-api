@@ -1,7 +1,21 @@
+# IDE files
+.vscode/
+.idea/
+riderModule.iml
+/_ReSharper.Caches/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User secrets
+**/appsettings.Production.json
+**/appsettings.Staging.json
+
+# Build results
 bin/
 obj/
 /packages/
-riderModule.iml
-/_ReSharper.Caches/
-.idea
-*.user
